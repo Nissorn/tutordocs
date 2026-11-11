@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A rotating cube</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #101418; color: #dfe7ef; overflow: hidden;
+        font: 13px/1.4 -apple-system, system-ui, sans-serif; }
+      canvas { display: block; }
+      #caption { position: fixed; left: 10px; bottom: 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="caption">Waiting for init</div>
+    <script type="module">
+      import * as THREE from "three";
+
+      const caption = document.getElementById("caption");
+      const post = (message) => parent.postMessage({ tutordoc: 1, ...message }, "*");
+
+      addEventListener("message", (event) => {
+        if (event.source !== parent || event.data?.tutordoc !== 1 || event.data.type !== "init") return;
+        start(event.data.data);
+      });
+
+      function start(data) {
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(innerWidth, innerHeight);
+        document.body.prepend(renderer.domElement);
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x101418);
+        const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 4);
+        const cube = new THREE.Mesh(
+          new THREE.BoxGeometry(1.4, 1.4, 1.4),
+          new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.45, metalness: 0.1 }),
+        );
+        scene.add(cube, new THREE.AmbientLight(0xffffff, 0.6));
+        const key = new THREE.DirectionalLight(0xffffff, 1.4);
+        key.position.set(3, 4, 5);
+        scene.add(key);
+        let frames = 0;
+        renderer.setAnimationLoop(() => {
+          cube.rotation.x += 0.01;
+          cube.rotation.y += 0.013;
+          renderer.render(scene, camera);
+          frames += 1;
+        });
+        const readyAtMs = Math.round(performance.now());
+        post({ type: "ready", visualId: "cube", height: 360 });
+        setTimeout(async () => {
+          caption.textContent = `${data.label}, three r${THREE.REVISION}, ${frames} frames`;
+          post({ type: "select", part: "probe", text: JSON.stringify(await probe(frames, readyAtMs)) });
+        }, 1000);
+      }
+
+      // Verification only: what the sandbox lets this document do. The request
+      // URLs are assembled at runtime to show the CSP blocks what a static scan
+      // could miss.
+      async function probe(frames, readyAtMs) {
+        const result = {
+          origin: String(self.origin),
+          revision: THREE.REVISION,
+          frames,
+          readyAtMs,
+          webgl2: document.createElement("canvas").getContext("webgl2") !== null,
+          tauriInternals: typeof window.__TAURI_INTERNALS__,
+          tauriGlobal: typeof window.__TAURI__,
+          documentBytes: new Blob([document.documentElement.outerHTML]).size,
+        };
+        try { result.parentDocument = String(parent.document.title); } catch (e) { result.parentDocument = e.name; }
+        try { result.localStorage = String(localStorage.length); } catch (e) { result.localStorage = e.name; }
+        const request = window["fe" + "tch"];
+        const attempt = (url) => Promise.race([
+          request(url).then((r) => "status " + r.status, (e) => e.name + ": " + e.message),
+          new Promise((done) => setTimeout(() => done("no answer in 1500 ms"), 1500)),
+        ]);
+        result.network = await attempt(["https:", "", "example.com", ""].join("/"));
+        result.userFile = await attempt(["file:", "", "", "etc", "hosts"].join("/"));
+        result.siblingScheme = await attempt(location.href.replace("/cube/", "/silent/"));
+        return result;
+      }
+    </script>
+  </body>
+</html>

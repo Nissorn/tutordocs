@@ -1,0 +1,9 @@
+TutorDocs
+Copyright (c) 2026 Nissorn
+
+This product includes software developed at the Data Intelligence Lab,
+The University of Hong Kong (DeepTutor, https://github.com/HKUDS/DeepTutor),
+licensed under the Apache License, Version 2.0. Portions of the TutorDocs
+engine are translated from DeepTutor's Python source into Rust.
+
+The Apache License, Version 2.0 is reproduced in LICENSE-APACHE.

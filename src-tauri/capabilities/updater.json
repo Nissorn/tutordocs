@@ -1,0 +1,12 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "updater-core",
+  "description": "Permissions for in-app updater, native confirmation dialogs, and process relaunch.",
+  "windows": ["reader"],
+  "permissions": [
+    "dialog:allow-ask",
+    "dialog:allow-message",
+    "updater:default",
+    "process:default"
+  ]
+}

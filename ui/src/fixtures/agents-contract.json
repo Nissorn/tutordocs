@@ -1,0 +1,40 @@
+{
+  "list_agent_drivers": {
+    "drivers": [
+      {
+        "id": "claude",
+        "available": true,
+        "binary": "/opt/fake/bin/claude",
+        "version": "2.1.319",
+        "capabilities": {
+          "headless": true,
+          "stream_json": true,
+          "structured_output": true,
+          "resume": true,
+          "system_append": true,
+          "tool_allowlist": true,
+          "read_only": true,
+          "auth": "SubscriptionOAuth"
+        },
+        "reason": null
+      },
+      {
+        "id": "qoder",
+        "available": false,
+        "binary": null,
+        "version": null,
+        "capabilities": null,
+        "reason": "qoder CLI not found on PATH or in the known install dirs"
+      },
+      {
+        "id": "agy",
+        "available": false,
+        "binary": "/opt/fake/bin/agy",
+        "version": null,
+        "capabilities": null,
+        "reason": "agy CLI found but unusable: --version exited with status 1"
+      }
+    ],
+    "selected": "claude"
+  }
+}

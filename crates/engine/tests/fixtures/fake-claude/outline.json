@@ -1,0 +1,9 @@
+{
+  "title": "Rust ownership",
+  "objectives": ["Explain what a move does", "Choose between shared and unique borrows"],
+  "chapters": [
+    {"id": "moves", "title": "Moves", "summary": "What happens to a value when it is assigned or passed"},
+    {"id": "borrows", "title": "Borrows", "summary": "Shared and unique references and the rules that keep them safe"},
+    {"id": "lifetimes", "title": "Lifetimes", "summary": "How the compiler proves a reference never outlives its value"}
+  ]
+}

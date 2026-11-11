@@ -1,0 +1,392 @@
+/* The right column of a written chapter: goals, sources, notes, questions. Tokens only, so dark follows. */
+.reader[data-panel] .margin {
+  padding: 0;
+}
+
+@media (min-width: 1081px) {
+  .reader[data-panel="collapsed"] {
+    grid-template-columns: var(--sidebar-col) minmax(0, 1fr) 3rem;
+  }
+}
+
+.study-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.study-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px 8px 20px;
+}
+
+.reader[data-panel="collapsed"] .study-head {
+  width: 3rem;
+  justify-content: center;
+  padding: 16px 0 8px;
+}
+
+.reader[data-panel="collapsed"] .study-title {
+  display: none;
+}
+
+.study-title {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.panel-toggle {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.panel-toggle:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+
+.panel-toggle:focus-visible,
+.chip:is(button):focus-visible,
+.retry:focus-visible,
+.ask-box textarea:focus-visible,
+.ask-box button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.study-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.study-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: 0 20px 24px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+.study-section + .study-section {
+  margin-top: 20px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-head > h2,
+.study-section > h2 {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* The glyph in the markup is aria-hidden and only says open or closed in text,
+   so it is hidden by size and a chevron is drawn in its place. */
+.section-indicator {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  font-size: 0;
+  line-height: 0;
+}
+
+.section-indicator::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  border: solid var(--ink-muted);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+  transition: transform 120ms var(--ease-out);
+}
+
+.study-section[data-collapsed="true"] .section-indicator::before {
+  transform: translate(-1px, 1px) rotate(-45deg);
+}
+
+.section-head:hover .section-indicator::before {
+  border-color: var(--ink);
+}
+
+.study-summary {
+  margin: 0 0 6px;
+  color: var(--ink-muted);
+}
+
+.study-goals {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.study-goals li {
+  margin: 2px 0;
+}
+
+.study-empty {
+  margin: 0;
+  color: var(--ink-quiet);
+}
+
+.study-section .error {
+  margin: 0 0 6px;
+  font-size: var(--text-sm);
+}
+
+.study-skeleton {
+  display: grid;
+  gap: 8px;
+}
+
+.study-skeleton span {
+  height: 10px;
+  border-radius: var(--radius-sm);
+  background: var(--hover);
+}
+
+.study-skeleton span:nth-child(1) {
+  width: 90%;
+}
+
+.study-skeleton span:nth-child(2) {
+  width: 70%;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-block;
+  max-width: 100%;
+  padding: 1px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+button.chip {
+  background: var(--sidebar-bg);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button.chip:hover {
+  background: var(--hover);
+}
+
+.retry {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.retry:hover {
+  color: var(--ink);
+}
+
+.study-notes .note-card + .note-card {
+  margin-top: 12px;
+}
+
+.study-notes .error {
+  margin: 0 0 8px;
+  font-size: var(--text-sm);
+}
+
+.note-quote {
+  display: -webkit-box;
+  margin: 0 0 2px;
+  overflow: hidden;
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  font-style: italic;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.answers {
+  display: grid;
+  gap: 14px;
+}
+
+.answer {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.answer:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.answer-question {
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+
+.answer-quote {
+  display: -webkit-box;
+  margin: 0 0 6px;
+  padding-left: 8px;
+  overflow: hidden;
+  border-left: 3px solid var(--line);
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  font-style: italic;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.answer-body {
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+.answer-body h1,
+.answer-body h2,
+.answer-body h3,
+.answer-body h4,
+.answer-body h5,
+.answer-body h6 {
+  margin: 0.8em 0 0.2em;
+  font-size: 1em;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.answer-body pre,
+.answer-body .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.answer-body .visual {
+  margin: 0.6em 0;
+}
+
+.answer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  margin-top: 6px;
+  color: var(--ink-quiet);
+  font-size: var(--text-xs);
+}
+
+.answer-sources {
+  display: contents;
+}
+
+.ask-box {
+  display: grid;
+  flex: none;
+  gap: 6px;
+  padding: 10px 20px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.ask-box textarea {
+  width: 100%;
+  min-height: 3.4em;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-md);
+  resize: none;
+  field-sizing: content;
+  max-height: 10em;
+}
+
+.ask-box textarea::placeholder {
+  color: var(--ink-quiet);
+}
+
+.ask-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ask-box button {
+  padding: 3px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--sidebar-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.ask-box button:hover:not(:disabled) {
+  background: var(--hover);
+}
+
+.ask-box button:disabled {
+  color: var(--ink-quiet);
+  cursor: default;
+}
+
+.ask-status {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+}
+
+.ask-status .error {
+  margin: 0;
+}

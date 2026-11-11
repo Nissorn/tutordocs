@@ -1,0 +1,37 @@
+{
+  "save_annotation": {
+    "chapterId": "cells",
+    "mark": {
+      "annotationId": "mark-1",
+      "kind": "highlight",
+      "color": "green",
+      "quote": "basic unit",
+      "note": "Basic in what sense? Smallest, or simplest?",
+      "selectors": [
+        { "type": "TextQuoteSelector", "exact": "basic unit", "prefix": "Cells\nThe cell is the ", "suffix": " of life.\n\nNucleus\nMembrane\n\n" },
+        { "type": "TextPositionSelector", "start": 22, "end": 32 }
+      ],
+      "resolution": "resolved",
+      "locator": 1,
+      "rects": []
+    }
+  },
+  "list_annotations": [
+    {
+      "annotationId": "mark-1",
+      "kind": "highlight",
+      "color": "green",
+      "quote": "basic unit",
+      "note": "Basic in what sense? Smallest, or simplest?",
+      "selectors": [
+        { "type": "TextQuoteSelector", "exact": "basic unit", "prefix": "Cells\nThe cell is the ", "suffix": " of life.\n\nNucleus\nMembrane\n\n" },
+        { "type": "TextPositionSelector", "start": 22, "end": 32 }
+      ],
+      "resolution": "resolved",
+      "locator": 1,
+      "rects": [],
+      "createdAt": 1700000000,
+      "updatedAt": 1700000000
+    }
+  ]
+}

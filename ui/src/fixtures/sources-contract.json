@@ -1,0 +1,8 @@
+{
+  "ingest_url": {
+    "name": "example-com-a.md",
+    "path": "/library/sources/example-com-a.md",
+    "url": "https://example.com/a",
+    "fetchedAt": "2026-11-08T11:13:20Z"
+  }
+}

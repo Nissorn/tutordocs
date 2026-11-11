@@ -1,0 +1,43 @@
+{
+  "_source": "notes/31-contract.md, section Section revision and questions. Hand-copied shapes, not Rust output: ticket 34 builds the commands in parallel.",
+  "chapter_context": {
+    "objectives": [
+      "Explain how a membrane separates a cell from its surroundings",
+      "Compare diffusion and active transport"
+    ],
+    "summary": "What a cell is, and why a boundary matters.",
+    "sources": ["cell-notes.pdf", "membranes.md"]
+  },
+  "revise_section": {
+    "id": "cells",
+    "title": "Cells",
+    "state": "ready",
+    "markdown": "# Cells\n\nThe cell is the basic unit of life.\n\n## Boundary\n\nA membrane keeps the inside different from the outside.\n"
+  },
+  "answers": [
+    {
+      "id": 2,
+      "quote": "basic unit of life",
+      "question": "Why is the cell called the basic unit?",
+      "answer": "Because every living thing is made of **one or more cells**, and a cell is the smallest part that still does everything life needs.",
+      "sources": ["cell-notes.pdf"],
+      "askedAt": "2026-11-09T10:30:00Z"
+    },
+    {
+      "id": 1,
+      "quote": null,
+      "question": "What should I remember about this chapter?",
+      "answer": "Three things:\n\n- A cell is the smallest living unit.\n- A membrane separates inside from outside.\n- Small molecules diffuse across it.",
+      "sources": [],
+      "askedAt": "2026-11-09T09:05:00Z"
+    }
+  ],
+  "ask_about_whole_chapter": {
+    "id": 3,
+    "quote": null,
+    "question": "How does a cell stay different from its surroundings?",
+    "answer": "Its membrane controls what crosses. Pumps spend energy to keep the inside different.",
+    "sources": ["membranes.md"],
+    "askedAt": "2026-11-09T11:00:00Z"
+  }
+}

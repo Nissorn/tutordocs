@@ -1,0 +1,9 @@
+CANDIDATE RESPONSE STRUCTURE:
+1. Safety & Situation Awareness (Don't panic; verify conditions)
+2. Immediate Containment & Mitigation (Prevent silicon damage)
+3. Structured Root-Cause Isolation (Hypothesis testing)
+   - Physical Containment Integrity (Doors, Blanking Panels)
+   - Airflow & Fan Tray Diagnostics (Chassis fans, VFD fans)
+   - Mechanical Heat Exchanger / Water Supply (Coil valves)
+4. Resolution & Verification
+5. Documentation & Blameless Postmortem Tracking

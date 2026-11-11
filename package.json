@@ -1,0 +1,11 @@
+{
+  "name": "tutordocs",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm --prefix ui run dev",
+    "build": "npm --prefix ui run build",
+    "tauri": "./ui/node_modules/.bin/tauri"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "silent",
+  "kind": "svg",
+  "entry": "index.html",
+  "title": "Parallel faces",
+  "chapterId": "shapes",
+  "events": ["ready", "select", "error"],
+  "vendor": [],
+  "csp": "strict",
+  "estimatedHeight": 200
+}

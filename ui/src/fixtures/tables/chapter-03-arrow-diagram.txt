@@ -1,0 +1,13 @@
+TRADITIONAL CENTRALIZED UPS ARCHITECTURE (High Inefficiency):
+Grid AC ---> [ AC-to-DC Converter ] ---> [ Central Lead-Acid Bank ] ---> [ DC-to-AC Inverter ] ---> Floor PDU ---> Server PSU
+                      |                                                         |
+                      +---------- Massive Heat & Conversion Losses (10-15%) ----+
+
+GOOGLE DECENTRALIZED RACK-LEVEL BATTERY ARCHITECTURE (Hyperscale Efficiency):
+Grid AC -----------------------------> Direct 415V AC to Rack ----------------------------> [ High-Efficiency Rectifier ]
+                                                                                                    | (Single Conversion)
+                                                                                                    v
+                                                                     [ Integrated 48V BBU ] <---> 48V DC Busbar
+                                                                                                    |
+                                                                                                    v
+                                                                                           Server & TPU Trays

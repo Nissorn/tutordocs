@@ -1,0 +1,21 @@
++-----------------------------------------------------------------------------------+
+|               DEEPMIND AI AUTONOMOUS COOLING OPTIMIZATION LOOP                    |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  1. TELEMETRY INGESTION                                                           |
+|     Thousands of IoT sensors record temperatures, pressures, flow rates, and kW   |
+|                                     |                                             |
+|                                     v                                             |
+|  2. DEEP NEURAL NETWORK MODEL                                                     |
+|     Predicts future PUE, temperatures, and water levels 60 minutes in advance     |
+|                                     |                                             |
+|                                     v                                             |
+|  3. CONSTRAINT EVALUATION ENGINE                                                  |
+|     Validates that proposed setpoints strictly adhere to all human safety margins |
+|     and equipment operational thresholds (fail-safe envelope)                     |
+|                                     |                                             |
+|                                     v                                             |
+|  4. AUTONOMOUS ACTUATOR CONTROL                                                   |
+|     Dispatches real-time commands to VFD fans, water pumps, dampers, and valves   |
+|     Result: Consistent ~40% reduction in total facility cooling energy overhead   |
++-----------------------------------------------------------------------------------+

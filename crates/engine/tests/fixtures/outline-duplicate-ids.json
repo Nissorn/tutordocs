@@ -1,0 +1,8 @@
+{
+  "title": "Rust ownership",
+  "objectives": ["Explain what a move does"],
+  "chapters": [
+    {"id": "moves", "title": "Moves", "summary": "One"},
+    {"id": "moves", "title": "Moves again", "summary": "Two"}
+  ]
+}

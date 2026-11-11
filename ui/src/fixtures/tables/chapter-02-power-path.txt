@@ -1,0 +1,13 @@
++---------------------------------------------------------------------------------------------------+
+|                                 ELECTRICAL POWER TRANSFORMATION PATH                              |
++----------------------+--------------------+-------------------------------------------------------+
+| Stage                | Voltage Level      | Key Equipment & Function                              |
++----------------------+--------------------+-------------------------------------------------------+
+| 1. Grid Infeed       | 115 kV – 230 kV AC | Utility transmission lines, high-voltage disconnects  |
+| 2. On-Site Substation| 13.8 kV AC         | Substation step-down transformers, primary isolation  |
+| 3. Medium Switchgear | 13.8 kV AC         | Vacuum breakers, ATS, generator paralleling bus       |
+| 4. Substation Unit   | 415 V / 480 V AC   | Step-down transformers to low-voltage floor power     |
+| 5. Overhead Busway   | 415 V 3-Phase AC   | Track busway over rack rows, modular tap-off boxes    |
+| 6. Rack Power Shelf  | 48 V DC            | High-efficiency rectifier shelf + distributed BBUs    |
+| 7. Server Motherboard| 12 V / 1 V DC      | Point-of-Load (PoL) VRMs stepping down to CPU/TPU core|
++----------------------+--------------------+-------------------------------------------------------+

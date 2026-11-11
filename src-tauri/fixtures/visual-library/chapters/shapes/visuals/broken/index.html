@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>A square that never draws</title></head>
+  <body>
+    <svg id="square" width="160" height="160"><rect x="20" y="20" width="120" height="120" fill="#4f8cff" /></svg>
+    <script>
+      // The bug: the element is "square", not "chart", so this throws before ready.
+      document.getElementById("chart").setAttribute("viewBox", "0 0 160 160");
+      parent.postMessage({ tutordoc: 1, type: "ready", visualId: "broken", height: 200 }, "*");
+    </script>
+  </body>
+</html>

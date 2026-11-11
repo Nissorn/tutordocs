@@ -1,0 +1,6 @@
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t1","name":"Read","input":{"file_path":"sources/notes.md"}}]},"session_id":"s"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t2","name":"Write","input":{"file_path":"chapter/index.md"}}]},"session_id":"s"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t3","name":"Edit","input":{"path":"chapter/index.md"}}]},"session_id":"s"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t4","name":"Grep","input":{"pattern":"fn main"}}]},"session_id":"s"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t5","name":"Glob","input":{"pattern":"sources/**/*.md"}}]},"session_id":"s"}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"tool_use","id":"t6","name":"WebFetch","input":{"url":"https://example.com/notes"}}]},"session_id":"s"}

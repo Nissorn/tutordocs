@@ -1,0 +1,255 @@
+#!/usr/bin/python3
+"""Fake claude for the A to D replay. No network, no model, no auth.
+This is the committed copy of the proof driver. It reads the prompt it is given,
+decides the job kind from the prompt's first line, and answers in the stream-json
+shape the app's parser reads.
+FAKE_STATE holds calls.log and one prompt file per call. FAKE_PAUSE is seconds between lines."""
+import json, os, re, sys, time
+
+args = sys.argv[1:]
+if args and args[0] in ("--version", "-v"):
+    print("2.1.319 (Claude Code)")
+    sys.exit(0)
+if args and args[0] in ("--help", "-h"):
+    print("""Usage: claude [options] [prompt]
+  -p, --print                     Print response and exit
+  --output-format <format>        text|json|stream-json
+  --verbose                       Override verbose mode setting from config
+  --json-schema <schema>          JSON Schema for structured output
+  --model <model>                 Model for the session
+  --effort <level>                Effort level (low, medium, high, xhigh, max)
+  -r, --resume [value]            Resume a conversation by session ID
+  --append-system-prompt <prompt> Append a system prompt
+  --tools <tools...>              Restrict the tools a job may use
+  --allowedTools, --allowed-tools <tools...>
+  --permission-mode <mode>        Permission mode""")
+    sys.exit(0)
+
+PAUSE = float(os.environ.get("FAKE_PAUSE", "3"))
+STATE = os.environ.get("FAKE_STATE", "/tmp/fake-claude-state")
+os.makedirs(STATE, exist_ok=True)
+prompt = args[args.index("-p") + 1] if "-p" in args else ""
+
+
+def emit(obj):
+    sys.stdout.write(json.dumps(obj) + "\n")
+    sys.stdout.flush()
+
+
+def say(text):
+    emit({"type": "assistant", "message": {"role": "assistant", "content": [{"type": "text", "text": text}]}, "session_id": "s"})
+
+
+def tool(name, key, val):
+    emit({"type": "assistant", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "t", "name": name, "input": {key: val}}]}, "session_id": "s"})
+
+
+def pause():
+    time.sleep(PAUSE)
+
+
+def done(result="Done.", structured=None):
+    r = {"type": "result", "subtype": "success", "is_error": False, "result": result, "session_id": "sess-fake"}
+    if structured is not None:
+        r["structured_output"] = structured
+    emit(r)
+
+
+def slug(s):
+    s = re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+    return (s or "chapter")[:60]
+
+
+def section(label, text):
+    m = re.search(label + r":\n<<<\n(.*?)\n>>>", text, re.S)
+    return m.group(1) if m else ""
+
+
+first = prompt.split("\n", 1)[0]
+if first.startswith("Plan a course as an outline"):
+    kind = "outline"
+elif first.startswith("Revise the course outline"):
+    kind = "revise_outline"
+elif first.startswith("Write one chapter of a course"):
+    kind = "chapter"
+elif first.startswith("Revise one section of a course chapter"):
+    kind = "revise_section"
+elif first.startswith("Answer a learner's question"):
+    kind = "ask"
+elif first.startswith("Write a short quiz on one chapter"):
+    kind = "quiz"
+elif first.startswith("Assess each actual learner answer"):
+    kind = "grade"
+else:
+    kind = "unknown"
+
+n = len([f for f in os.listdir(STATE) if f.startswith("prompt-")]) + 1
+with open(os.path.join(STATE, "prompt-%02d-%s.txt" % (n, kind)), "w") as f:
+    f.write(prompt)
+with open(os.path.join(STATE, "calls.log"), "a") as f:
+    f.write("%02d %s cwd=%s anthropic_key=%s args=%s\n" % (
+        n, kind, os.getcwd(), os.environ.get("ANTHROPIC_API_KEY", "unset"),
+        [a for a in args if a != prompt and not a.startswith("{")][:14]))
+
+emit({"type": "system", "subtype": "init", "session_id": "sess-fake"})
+source_names = sorted(os.listdir("sources")) if os.path.isdir("sources") else []
+
+if kind == "outline":
+    topic = re.search(r"^TOPIC: (.*)$", prompt, re.M).group(1)
+    listed = re.findall(r"^- sources/(.*)$", prompt, re.M)
+    say("Reading the chosen sources before planning the outline.")
+    pause()
+    if listed:
+        tool("Read", "file_path", "sources/" + listed[0])
+        pause()
+    say("Grouping the material into four chapters.")
+    pause()
+    pick = lambda *names: [x for x in names if x in listed]
+    chapters = [
+        {"id": "membrane-structure", "title": "Membrane structure", "summary": "The lipid bilayer and the proteins set in it.",
+         "sources": pick("cell-membranes.pdf", "study-notes.md")},
+        {"id": "passive-transport", "title": "Passive transport", "summary": "Diffusion and osmosis across the bilayer.",
+         "sources": pick("cell-membranes.pdf", "study-notes.md")},
+        {"id": "active-transport", "title": "Active transport", "summary": "Pumps that spend energy to move solutes uphill.",
+         "sources": pick("transport-lecture.pdf")},
+        {"id": "cell-signaling", "title": "Cell signaling", "summary": "Receptors and the messages that cross a membrane.",
+         "sources": pick("glossary.txt")},
+    ]
+    done("Outline ready.", {
+        "title": "Cell Membranes",
+        "objectives": ["Explain how a membrane separates a cell from its surroundings", "Compare passive and active transport"],
+        "chapters": chapters,
+    })
+elif kind == "revise_outline":
+    say("Reading the comments on each chapter.")
+    pause()
+    title = re.search(r"^COURSE: (.*)$", prompt, re.M).group(1)
+    objectives = re.findall(r"^- (.*)$", prompt.split("OBJECTIVES:\n", 1)[1].split("CURRENT CHAPTERS:", 1)[0], re.M)
+    block = prompt.split("CURRENT CHAPTERS:\n", 1)[1].split("\nCOMMENTS:", 1)[0]
+    chapters, cur = [], None
+    for line in block.split("\n"):
+        m = re.match(r"^\d+\. (.*) \(([^)]*)\)( \[written - keep id\])?: (.*)$", line)
+        if m:
+            cur = {"title": m.group(1), "id": m.group(2), "summary": m.group(4), "comment": ""}
+            chapters.append(cur)
+        elif line.strip().startswith("Comment:") and cur is not None:
+            cur["comment"] = line.strip()[len("Comment:"):].strip()
+    say("Applying %d comment(s) to the outline." % len([c for c in chapters if c["comment"]]))
+    pause()
+    out = []
+    for c in chapters:
+        cid = c["id"] if c["id"] != "new" else slug(c["title"])
+        t, s = c["title"], c["summary"]
+        if c["comment"]:
+            t = t + " (revised)"
+            s = "Now covers: " + c["comment"].rstrip(".") + ". " + s
+        out.append({"id": cid, "title": t, "summary": s, "sources": []})
+    done("Outline revised.", {"title": title, "objectives": objectives or ["Explain the topic"], "chapters": out})
+elif kind == "chapter":
+    title = re.search(r"^CHAPTER: (.*)$", prompt, re.M).group(1)
+    covers = re.search(r"^COVERS: (.*)$", prompt, re.M).group(1)
+    say("Reading the course outline before writing this chapter.")
+    pause()
+    if source_names:
+        tool("Read", "file_path", "sources/" + source_names[0])
+        pause()
+    say("Drafting the sections of " + title + ".")
+    pause()
+    cite = ("sources/" + source_names[0]) if source_names else "the sources"
+    os.makedirs("chapter", exist_ok=True)
+    body = (
+        "# %s\n\n"
+        "%s This chapter follows the material in `%s` and builds on the chapters before it.\n\n"
+        "## The core idea\n\n"
+        "A cell membrane is a double layer of lipids with proteins set in it. Water-loving heads face the outside and the inside of the cell, and the oily tails face each other in the middle.\n\n"
+        "Because the middle of the bilayer is oily, charged and large molecules cannot slip through it without help. That is why a membrane works as a selective barrier.\n\n"
+        "## Worked example\n\n"
+        "Oxygen is small and has no charge, so it crosses the bilayer by diffusion down its concentration gradient. Glucose is large and polar, so it needs a carrier protein.\n\n"
+        "The carrier changes shape when glucose binds, and releases it on the other side. No energy is spent while the gradient points the right way.\n\n"
+        "## Key ideas\n\n"
+        "- The bilayer is a selective barrier.\n"
+        "- Small, uncharged molecules diffuse across it.\n"
+        "- Large or charged molecules need a protein.\n"
+    ) % (title, covers, cite)
+    asked = re.search(r"\nBEGIN LEARNER REQUEST\n(.*?)\nEND LEARNER REQUEST\n", prompt, re.S)
+    if asked:
+        body = body.replace("\n\n", "\n\nRewritten as the learner asked: %s\n\n" % json.loads(asked.group(1)).replace("\n", " "), 1)
+    with open("chapter/index.md", "w") as f:
+        f.write(body)
+    tool("Write", "file_path", "chapter/index.md")
+    pause()
+    done("Wrote the chapter.")
+elif kind == "revise_section":
+    instruction = section("INSTRUCTION", prompt) or re.search(r"INSTRUCTION:\n(.*?)\n\nSECTION TO REVISE", prompt, re.S).group(1)
+    sect = section("SECTION TO REVISE", prompt)
+    say("Reading the section and your instruction.")
+    pause()
+    heading = sect.split("\n", 1)[0] if sect.startswith("#") else ""
+    say("Rewriting only that section.")
+    pause()
+    os.makedirs("chapter", exist_ok=True)
+    new = (heading + "\n\n" if heading else "") + (
+        "REVISED SECTION. The learner asked: %s\n\n"
+        "A plain restatement follows. Small molecules such as oxygen cross the bilayer on their own. Larger or charged molecules wait for a protein to carry them across, and the carrier hands them over without spending energy while the gradient points the right way.\n"
+    ) % instruction.strip()
+    with open("chapter/index.md", "w") as f:
+        f.write(new)
+    tool("Write", "file_path", "chapter/index.md")
+    pause()
+    done("Revised the section.")
+elif kind == "ask":
+    question = re.search(r"QUESTION:\n(.*?)\n\nThis folder holds", prompt, re.S).group(1).strip()
+    passage = section("PASSAGE", prompt)
+    say("Reading the chapter and the sources.")
+    pause()
+    cite = source_names[0] if source_names else None
+    if cite:
+        tool("Read", "file_path", "sources/" + cite)
+        pause()
+    ans = "You asked: %s\n\n" % question
+    if passage:
+        ans += "About the passage \"%s\": " % passage[:60].replace("\n", " ")
+    ans += "a membrane keeps its inside different from its outside because the oily middle of the bilayer blocks charged and large molecules. "
+    if cite:
+        ans += "See `sources/%s` for the longer treatment." % cite
+    done("Answered.", {"answer": ans, "sources": [cite] if cite else []})
+elif kind == "quiz":
+    fail_flag = os.path.join(STATE, "quiz-failed")
+    if not os.path.exists(fail_flag):
+        with open(fail_flag, "w") as f:
+            f.write("failed\n")
+        say("Attempting to write quiz questions.")
+        pause()
+        emit({"type": "result", "subtype": "error_during_execution", "is_error": True, "result": "the agent stopped", "session_id": "sess-fake"})
+        sys.exit(1)
+    say("Writing a short quiz based on the chapter material.")
+    pause()
+    done("Wrote the quiz.", {
+        "questions": [
+            {
+                "objective": 1,
+                "question": "Why does oxygen cross the membrane while charged molecules do not?",
+                "reference_answer": "Oxygen is small and uncharged so it diffuses across, while the oily middle blocks charged molecules.",
+                "combines": [
+                    "A cell membrane is a double layer of lipids with proteins set in it.",
+                    "Oxygen is small and has no charge, so it crosses the bilayer by diffusion down its concentration gradient.",
+                ],
+            }
+        ]
+    })
+elif kind == "grade":
+    say("Grading learner answers.")
+    pause()
+    done("Graded.", {
+        "verdicts": [
+            {
+                "question_id": "q1",
+                "result": "correct",
+                "confidence": 0.9,
+                "feedback": "Oxygen is small and uncharged, so it diffuses across the oily bilayer.",
+            }
+        ]
+    })
+else:
+    emit({"type": "result", "subtype": "success", "is_error": True, "result": "fake claude: unknown job", "session_id": "sess-fake"})
+    sys.exit(1)

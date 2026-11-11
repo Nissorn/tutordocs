@@ -1,0 +1,24 @@
++-----------------------------------------------------------------------------------+
+|                 DATA STORAGE MEDIA RETIREMENT & DESTRUCTION PIPELINE              |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  1. AUTOMATED DECOMMISSIONING                                                     |
+|     Storage orchestrator flags failing disk -> securely wipes keys -> unmounts    |
+|                                     |                                             |
+|                                     v                                             |
+|  2. PHYSICAL EXTRACTION & BARCODE AUDIT                                           |
+|     Technician scans tray barcode -> scans disk serial number -> deposits in lockbox|
+|                                     |                                             |
+|                                     v                                             |
+|  3. SECURE CAGE VERIFICATION                                                      |
+|     Dual-custody verification inside the media sanitization room                  |
+|                                     |                                             |
+|                                     v                                             |
+|  4. MECHANICAL DESTRUCTION (NIST SP 800-88 Compliant)                             |
+|     - Magnetic HDDs: High-intensity degaussing coil -> Hydraulic steel punch hole |
+|     - Flash SSDs: Industrial shredder grinds silicon NAND dies to <2mm fragments  |
+|                                     |                                             |
+|                                     v                                             |
+|  5. RECYCLING & MATERIAL HARVESTING                                               |
+|     Shredded e-waste is weighed, logged, and shipped to certified metals refiners |
++-----------------------------------------------------------------------------------+

@@ -1,0 +1,14 @@
+/* A display formula keeps its place in the column; one wider than the page scrolls inside itself. */
+.prose .math-block {
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose .math-block .katex-display {
+  margin: 0;
+}
+
+.prose .katex-error {
+  color: var(--danger);
+}

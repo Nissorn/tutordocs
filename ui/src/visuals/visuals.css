@@ -1,0 +1,52 @@
+figure.visual {
+  margin: 1.5rem 0;
+}
+
+.visual-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: var(--code-bg);
+}
+
+.visual-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 1rem;
+  border-radius: 6px;
+  background: var(--code-bg);
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+
+.visual-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.visual-notice .retry {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.visual-notice .retry:hover {
+  color: var(--ink);
+}
+
+figure.visual[data-state="fallback"] .visual-fallback {
+  padding-left: 1rem;
+  border-left: 3px solid var(--line);
+}

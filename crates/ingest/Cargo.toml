@@ -1,0 +1,9 @@
+[package]
+name = "tutordocs-ingest"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+# Pinned per ticket 03: pure-Rust PDF text with per-glyph positions (Spike 3).
+pdf-extract = "=0.12.1"

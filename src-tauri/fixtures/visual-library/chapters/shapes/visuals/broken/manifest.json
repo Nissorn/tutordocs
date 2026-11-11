@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "broken",
+  "kind": "svg",
+  "entry": "index.html",
+  "title": "A square that never draws",
+  "chapterId": "shapes",
+  "events": ["ready", "select", "error"],
+  "vendor": [],
+  "csp": "strict",
+  "estimatedHeight": 200
+}

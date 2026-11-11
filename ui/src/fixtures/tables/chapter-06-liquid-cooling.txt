@@ -1,0 +1,18 @@
++-----------------------------------------------------------------------------------+
+|                TPU DIRECT-TO-CHIP LIQUID COOLING ARCHITECTURE                     |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  Cooling Distribution Unit (CDU)                                                  |
+|  [ Liquid-to-Liquid Heat Exchanger + Circulating Pumps + Filter + Deionizer ]     |
+|          | Supply Header (Clean Water-Glycol @ 25°C)                              |
+|          v                                                                        |
+|  Rack Liquid Manifold (Vertical Distribution Pipe running down rack frame)        |
+|          | Blind-Mate Dripless Quick-Disconnect Couplings                         |
+|          v                                                                        |
+|  Server / TPU Tray Cold Plate                                                     |
+|  [ Micro-channel copper cold plate clamped directly over TPU silicon die ]        |
+|  - Thermal Interface Material (TIM): High-conductivity thermal paste/indium pad   |
+|  - Heat conducts directly from silicon die -> copper baseplate -> liquid fluid    |
+|          |                                                                        |
+|          +---> Return Header (Warm Fluid @ 38°C) ---> Returns to CDU Heat Exch.   |
++-----------------------------------------------------------------------------------+

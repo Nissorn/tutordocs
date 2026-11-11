@@ -1,0 +1,65 @@
+{
+  "list_pdf_sources": ["lecture.pdf"],
+  "read_pdf_source": {
+    "name": "lecture.pdf",
+    "glyphHeightFactor": 1.2,
+    "pages": [
+      {
+        "page": 1,
+        "width": 612,
+        "height": 792,
+        "text": "Hello world",
+        "caveat": null,
+        "words": [
+          { "quote": "Hello", "rect": { "x": 0.11764705882352941, "y": 0.9030303030303031, "w": 0.08933333333333333, "h": 0.036363636363636306 } },
+          { "quote": "world", "rect": { "x": 0.21788235294117647, "y": 0.9030303030303031, "w": 0.09368627450980395, "h": 0.036363636363636306 } }
+        ]
+      },
+      {
+        "page": 2,
+        "width": 612,
+        "height": 792,
+        "text": "Hello",
+        "caveat": "transformedFormText",
+        "words": [
+          { "quote": "Hello", "rect": { "x": 0.11764705882352941, "y": 0.9030303030303031, "w": 0.08933333333333333, "h": 0.036363636363636306 } }
+        ]
+      }
+    ]
+  },
+  "save_source_annotation": {
+    "sourceName": "lecture.pdf",
+    "mark": {
+      "annotationId": "pdf-mark-1",
+      "kind": "highlight",
+      "color": "yellow",
+      "quote": "Hello world",
+      "note": "The first words on the page.",
+      "selectors": [
+        { "type": "TextQuoteSelector", "exact": "Hello world", "prefix": "", "suffix": "" },
+        { "type": "TextPositionSelector", "start": 0, "end": 11 }
+      ],
+      "resolution": "resolved",
+      "locator": 1,
+      "rects": [{ "x": 0.11764705882352941, "y": 0.9030303030303031, "w": 0.193921568627451, "h": 0.036363636363636306 }]
+    }
+  },
+  "list_source_annotations": [
+    {
+      "annotationId": "pdf-mark-1",
+      "kind": "highlight",
+      "color": "yellow",
+      "quote": "Hello world",
+      "note": "The first words on the page.",
+      "selectors": [
+        { "type": "TextQuoteSelector", "exact": "Hello world", "prefix": "", "suffix": "" },
+        { "type": "TextPositionSelector", "start": 0, "end": 11 }
+      ],
+      "resolution": "resolved",
+      "locator": 1,
+      "rects": [{ "x": 0.11764705882352941, "y": 0.9030303030303031, "w": 0.193921568627451, "h": 0.036363636363636306 }],
+      "createdAt": 1700000000,
+      "updatedAt": 1700000000
+    }
+  ]
+}

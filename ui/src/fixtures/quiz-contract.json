@@ -1,0 +1,52 @@
+{
+  "chapter": "# Moves\n\nA move transfers ownership to the new binding.\n\nA variable whose value was moved cannot be used again.\n",
+  "agent_quiz": {
+    "questions": [
+      {
+        "objective": 1,
+        "question": "You pass a String to a function and then print it. Why does the compiler refuse?",
+        "reference_answer": "Passing the String moves ownership into the function, and a variable whose value was moved cannot be used again, so the later print uses a moved-from variable.",
+        "combines": [
+          "A move transfers ownership to the new binding.",
+          "A variable whose value was moved cannot be used again."
+        ]
+      }
+    ]
+  },
+  "generate_quiz": {
+    "chapterId": "moves",
+    "questions": [
+      {
+        "id": "q1",
+        "objective": "Explain moves",
+        "prompt": "You pass a String to a function and then print it. Why does the compiler refuse?",
+        "referenceAnswer": "Passing the String moves ownership into the function, and a variable whose value was moved cannot be used again, so the later print uses a moved-from variable.",
+        "combines": [
+          "A move transfers ownership to the new binding.",
+          "A variable whose value was moved cannot be used again."
+        ]
+      }
+    ]
+  },
+  "learner_answer": "The function took ownership, so my variable is moved and the print is a use after move.",
+  "agent_verdicts": {
+    "verdicts": [
+      {
+        "question_id": "q1",
+        "result": "correct",
+        "confidence": 0.9,
+        "feedback": "Right: the call moves ownership, so the later print uses a moved-from variable."
+      }
+    ]
+  },
+  "grade_quiz": [
+    {
+      "questionId": "q1",
+      "objective": "Explain moves",
+      "result": "correct",
+      "final": true,
+      "confidence": 0.9,
+      "feedback": "Right: the call moves ownership, so the later print uses a moved-from variable."
+    }
+  ]
+}

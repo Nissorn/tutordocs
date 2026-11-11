@@ -1,0 +1,13 @@
+{
+  "describe_visual_accepted": {
+    "status": "accepted",
+    "title": "A rotating cube",
+    "kind": "three",
+    "estimatedHeight": 360,
+    "data": { "label": "A cube", "color": "#4f8cff" }
+  },
+  "describe_visual_rejected": {
+    "status": "rejected",
+    "reason": "external URL \"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js\" on line 6"
+  }
+}

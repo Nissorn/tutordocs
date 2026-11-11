@@ -1,0 +1,17 @@
++---------------------------------------------------------------------------------------------------+
+|                             HYPERSCALER HEAT REJECTION CYCLES                                     |
++---------------------------------------------------------------------------------------------------+
+|                                                                                                   |
+|  [ Server Silicon ]  ---> Heat transferred to air (~120°F)                                        |
+|         |                                                                                         |
+|         v                                                                                         |
+|  [ Pod Cooling Coils ] ---> Heat transferred to Chilled Water Loop (~75°F supply / ~95°F return)  |
+|         |                                                                                         |
+|         +---------------------------------------+-----------------------------------------+       |
+|         |                                       |                                         |       |
+|         v                                       v                                         v       |
+|  [ Evaporative Cooling Towers ]      [ Natural Water Economizer ]              [ District Heat ]  |
+|  - Water evaporation absorbs heat    - Cold seawater (Hamina, Finland)         - Waste heat sent  |
+|  - Uses recycled/greywater           - Industrial canal (St. Ghislain, Belgium)- to warm local    |
+|  - Wet-bulb thermodynamic cooling    - 100% chiller-free year-round            - municipal homes  |
++---------------------------------------------------------------------------------------------------+

@@ -1,0 +1,53 @@
+#!/bin/sh
+# Fake claude for the ticket 13 acceptance run. No network, no quota, no auth.
+# It never calls a model. It answers the outline job with the recorded outline,
+# the first chapter job with chapter-v1.md and every later chapter job with
+# chapter-v2.md. FAKE_DIR holds the outline, FAKE_CHAPTERS the two chapters
+# (ui/src/fixtures/feel/), FAKE_STATE holds a counter and
+# a log of every call.
+case "$1" in
+  --version|-v)
+    echo "2.1.319 (Claude Code)"
+    exit 0
+    ;;
+  --help|-h)
+    cat <<'HELP'
+Usage: claude [options] [prompt]
+  -p, --print                     Print response and exit
+  --output-format <format>        text|json|stream-json
+  --verbose                       Override verbose mode setting from config
+  --json-schema <schema>          JSON Schema for structured output
+  -r, --resume [value]            Resume a conversation by session ID
+  --append-system-prompt <prompt> Append a system prompt
+  --tools <tools...>              Restrict the tools a job may use
+  --allowedTools, --allowed-tools <tools...>
+  --permission-mode <mode>        Permission mode
+HELP
+    exit 0
+    ;;
+esac
+PROMPT="$2"
+LOG="$FAKE_STATE/calls.log"
+printf '%s\n' '{"type":"system","subtype":"init","session_id":"sess-fake"}'
+case "$PROMPT" in
+  *"CHAPTER_DIR:"*)
+    n=$(cat "$FAKE_STATE/chapter-count" 2>/dev/null || echo 0)
+    n=$((n + 1))
+    echo "$n" > "$FAKE_STATE/chapter-count"
+    echo "chapter job $n cwd=$(pwd) anthropic_key=${ANTHROPIC_API_KEY:-unset}" >> "$LOG"
+    mkdir -p chapter
+    if [ "$n" -eq 1 ]; then cp "$FAKE_CHAPTERS/chapter-v1.md" chapter/index.md; else cp "$FAKE_CHAPTERS/chapter-v2.md" chapter/index.md; fi
+    sleep 2
+    printf '%s\n' '{"type":"result","subtype":"success","is_error":false,"result":"Wrote the chapter.","session_id":"sess-fake"}'
+    ;;
+  *"TOPIC:"*)
+    echo "outline job cwd=$(pwd) anthropic_key=${ANTHROPIC_API_KEY:-unset}" >> "$LOG"
+    OUT=$(tr -d '\n' < "$FAKE_DIR/outline.json")
+    printf '{"type":"result","subtype":"success","is_error":false,"result":"","structured_output":%s,"session_id":"sess-fake"}\n' "$OUT"
+    ;;
+  *)
+    echo "unknown job" >> "$LOG"
+    printf '%s\n' '{"type":"result","subtype":"success","is_error":true,"result":"fake claude: unknown job","session_id":"sess-fake"}'
+    exit 1
+    ;;
+esac

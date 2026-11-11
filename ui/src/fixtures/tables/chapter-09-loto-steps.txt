@@ -1,0 +1,15 @@
++-----------------------------------------------------------------------------------+
+|                            THE SIX CORE STEPS OF LOTO                             |
++-----------------------------------------------------------------------------------+
+|  1. PREPARATION     | Identify all sources of hazardous energy (electrical,       |
+|                     | mechanical, pneumatic, thermal, hydraulic, chemical).       |
+|  2. SHUTDOWN        | Inform affected personnel; execute standard equipment stop. |
+|  3. ISOLATION       | Physically disconnect energy sources (open breaker/switch). |
+|  4. LOCK & TAG      | Apply an individual padlock and standardized danger tag to  |
+|                     | the energy isolation device. ONE TECH, ONE KEY, ONE LOCK.   |
+|  5. ZERO ENERGY     | Dissipate stored energy (discharge capacitors, bleed fluid  |
+|                     | pressure, block mechanical components from falling).        |
+|  6. VERIFICATION    | "TEST BEFORE TOUCH." Use a calibrated, inspected multi-meter|
+|                     | to prove absolute zero electrical potential phase-to-phase  |
+|                     | and phase-to-ground. Attempt to turn equipment back on.     |
++-----------------------------------------------------------------------------------+

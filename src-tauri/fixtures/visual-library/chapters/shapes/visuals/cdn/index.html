@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>A cube from a CDN</title></head>
+  <body>
+    <script type="module">
+      import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js";
+      parent.postMessage({ tutordoc: 1, type: "ready", visualId: "cdn" }, "*");
+    </script>
+  </body>
+</html>

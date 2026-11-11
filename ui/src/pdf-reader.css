@@ -1,0 +1,162 @@
+/* PDF sources: extracted words placed at their page rects. Every box inside a
+   page is in percent of the page, so zoom only changes the page width. */
+.page:has(.pdf-source) {
+  max-width: none;
+  overflow-wrap: normal;
+}
+
+/* The file name is a label for the page below it, not the chapter title. */
+.page:has(.pdf-source) h1 {
+  max-width: var(--measure);
+  margin: 0 auto 0.4em;
+  font-size: 1.75em;
+}
+
+.pdf-notice {
+  max-width: var(--measure);
+  margin: 0 auto 12px;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.pdf-toolbar {
+  position: sticky;
+  top: -72px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 6px 0;
+  background: var(--paper);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.pdf-zoom {
+  width: var(--control-h-sm);
+  height: var(--control-h-sm);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.pdf-zoom:disabled {
+  color: var(--ink-quiet);
+  cursor: default;
+}
+
+.pdf-zoom-label {
+  min-width: 3.5em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdf-page-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.pdf-page-input {
+  width: 3.5em;
+  padding: 3px 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdf-page-input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: -1px;
+}
+
+.pdf-page-total {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
+
+.pdf-pages {
+  --zoom: 1;
+  width: calc(var(--zoom) * min(100%, 50rem));
+  margin: 0 auto;
+}
+
+.pdf-sheet + .pdf-sheet {
+  margin-top: 24px;
+}
+
+.pdf-caveat {
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border-left: 3px solid var(--danger);
+  background: var(--pdf-caveat-bg);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.pdf-page {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow-card);
+}
+
+.pdf-word {
+  position: absolute;
+  width: auto !important;
+  white-space: pre;
+  transform-origin: 0 0;
+  color: var(--ink);
+  font-family: Helvetica, Arial, sans-serif;
+  cursor: text;
+}
+
+.pdf-highlights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pdf-highlight {
+  position: absolute;
+  background: var(--mark);
+  border-radius: 2px;
+}
+
+/* The margin's empty state: a muted line, not a control, until the first mark. */
+.pdf-empty-note {
+  margin: 0;
+  color: var(--ink-quiet);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* Behind the words; covers the page only while a drag is selecting. */
+.pdf-end {
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: -1;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pdf-pages.selecting .pdf-end {
+  top: 0;
+}

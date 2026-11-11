@@ -1,0 +1,7 @@
+CANDIDATE RESPONSE STRUCTURE:
+1. Immediate Hazard Assessment & Life Safety Prioritization
+2. Invoking Stop Work Authority (No hesitation, no schedule bias)
+3. Physical Barricade & Hazard Isolation
+4. Formal Lockout / Tagout (LOTO) Execution
+5. Stakeholder Communication & Shift Handover
+6. Root Cause and Corrective Action Plan

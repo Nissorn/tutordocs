@@ -1,0 +1,150 @@
+/* The quiz has no use for the study panel, so it collapses the margin column
+   the way the outline review does. */
+.reader[data-mode="quiz"] {
+  grid-template-columns: var(--sidebar-col) minmax(0, 1fr);
+}
+
+.reader[data-mode="quiz"] .margin {
+  display: none;
+}
+
+.quiz h1 {
+  margin-top: var(--space-lg);
+}
+
+.quiz .generation-status {
+  min-height: 0;
+  margin: 0 0 var(--space-lg);
+}
+
+.quiz-form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.quiz-form .quiet-button,
+.quiz-form .outline-submit {
+  justify-self: start;
+}
+
+.quiz-question {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The objective a question tests is a quiet line above it, in sentence case. */
+.quiz-objective {
+  margin-bottom: var(--space-xs);
+  padding: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+}
+
+.quiz-prompt {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.quiz-answer {
+  width: 100%;
+  min-height: 7rem;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.quiz-answer:read-only {
+  background: var(--sidebar-bg);
+}
+
+.quiz-verdict:empty {
+  display: none;
+}
+
+.quiz-verdict {
+  padding: 8px 12px;
+  border-left: 3px solid var(--line);
+  color: var(--ink);
+}
+
+.quiz-verdict[data-result="correct"] {
+  border-left-color: var(--ok-ink);
+}
+
+.quiz-verdict[data-result="partial"] {
+  border-left-color: var(--warn-ink);
+}
+
+.quiz-verdict[data-result="incorrect"] {
+  border-left-color: var(--danger);
+}
+
+.quiz-reference {
+  margin-top: 6px;
+  color: var(--ink-muted);
+}
+
+.quiz-reference summary {
+  cursor: pointer;
+}
+
+.progress {
+  margin-top: var(--space-md);
+  padding: 0 10px;
+}
+
+.progress-title {
+  margin: 0 0 var(--space-xs);
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.progress-list {
+  display: grid;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress-item {
+  display: grid;
+  gap: var(--space-2xs);
+  font-size: var(--text-sm);
+}
+
+.progress-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background: var(--ok-ink);
+}
+
+.progress-meta {
+  color: var(--ink-muted);
+  font-size: 0.92em;
+}
+
+.progress-item[data-due="true"] .progress-meta {
+  color: var(--warn-ink);
+}

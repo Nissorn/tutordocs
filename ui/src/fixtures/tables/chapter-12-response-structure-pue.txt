@@ -1,0 +1,6 @@
+CANDIDATE RESPONSE STRUCTURE:
+1. Mathematical Calculation: PUE = Total Facility Power / IT Load
+2. Benchmarking against Enterprise vs. Hyperscale Standards
+3. Decomposition of the 8 MW Overhead (Cooling, Transformation, Lighting)
+4. Specific Optimization Levers (Thermal, Electrical, Machine Learning)
+5. Practical Trade-Offs (Water Consumption vs. Power Consumption)

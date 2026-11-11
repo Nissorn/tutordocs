@@ -1,0 +1,19 @@
+{
+  "generate_outline": {
+    "id": "lib",
+    "title": "Rust ownership",
+    "objectives": ["Explain moves"],
+    "chapterIds": ["moves", "borrows"]
+  },
+  "open_chapter_ready": {
+    "id": "moves",
+    "title": "Moves",
+    "state": "ready",
+    "markdown": "# Moves\n\nA move transfers ownership.\n"
+  },
+  "progress": [
+    { "kind": "started" },
+    { "kind": "tool", "name": "Grep" },
+    { "kind": "text", "chars": 18 }
+  ]
+}

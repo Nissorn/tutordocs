@@ -1,0 +1,8 @@
+CANDIDATE RESPONSE STRUCTURE:
+1. High-Level Overview & Voltage Levels
+2. Utility Infeed to On-Site Substation (HV to MV)
+3. Medium-Voltage Switchgear & Backup Generation Integration
+4. Substation Step-Down & Overhead Distribution (415V Standard)
+5. Rack-Level Conversion & Decentralized Battery Backup (48V Busbar)
+6. Point-of-Load VRMs on the Motherboard (1V Silicon Core)
+7. Summary of Google's Efficiency Innovations vs. Traditional Data Centers

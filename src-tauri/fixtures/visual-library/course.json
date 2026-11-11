@@ -1,0 +1,6 @@
+{
+  "id": "shapes",
+  "title": "Shapes in space",
+  "objectives": ["Picture a cube from every side"],
+  "chapters": [{ "id": "shapes", "title": "Solids", "summary": "Faces, edges and corners of a cube" }]
+}

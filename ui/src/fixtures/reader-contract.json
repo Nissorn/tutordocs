@@ -1,0 +1,41 @@
+{
+  "list_courses": [
+    {
+      "id": "bio101",
+      "title": "Cell Biology",
+      "objectives": ["Explain how a membrane separates a cell from its surroundings"]
+    }
+  ],
+  "list_library_courses": [
+    {
+      "id": "cell-biology",
+      "storedId": "bio101",
+      "title": "Cell Biology",
+      "tags": [],
+      "objectives": ["Explain how a membrane separates a cell from its surroundings"],
+      "chapterCount": 2,
+      "chapterTitles": ["Cells", "Membranes"],
+      "writtenChapterCount": 1,
+      "createdAt": 1700000000,
+      "openedAt": null,
+      "error": null,
+      "outlineStatus": "approved",
+      "planning": false
+    }
+  ],
+  "list_chapters": [
+    { "id": "cells", "title": "Cells", "placeholder": false },
+    { "id": "membranes", "title": "Membranes", "placeholder": true }
+  ],
+  "read_chapter_ready": {
+    "id": "cells",
+    "title": "Cells",
+    "state": "ready",
+    "markdown": "# Cells\n\nThe cell is the basic unit of life.\n\n- Nucleus\n- Membrane\n"
+  },
+  "read_chapter_placeholder": {
+    "id": "membranes",
+    "title": "Membranes",
+    "state": "placeholder"
+  }
+}

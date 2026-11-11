@@ -1,0 +1,13 @@
++-----------------------------------------------------------------------------------+
+|                           WAREHOUSE-SCALE COMPUTER (WSC)                          |
++-----------------------------------------------------------------------------------+
+|  Software Orchestration Layer (Borg, Colossus, Jupiter Fabric SDN Controller)     |
++-----------------------------------------------------------------------------------+
+|  Tens of Thousands of Homogeneous Server Trays & Custom AI Accelerator Pods       |
++-----------------------------------------------------------------------------------+
+|  Overhead Modular 415V Power Busways & Integrated Decentralized Rack Battery BBUs |
++-----------------------------------------------------------------------------------+
+|  Sealed Hot-Aisle Containment (HAC) Pods & Climate-Conscious Water Cooling Loops   |
++-----------------------------------------------------------------------------------+
+|  Utility Substations, Emergency Turbo-Generators, & Physical Security Mantrap     |
++-----------------------------------------------------------------------------------+

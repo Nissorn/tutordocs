@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "cdn",
+  "kind": "three",
+  "entry": "index.html",
+  "title": "A cube from a CDN",
+  "chapterId": "shapes",
+  "events": ["ready", "select", "error"],
+  "vendor": ["three@0.169.0"],
+  "csp": "strict",
+  "estimatedHeight": 360
+}

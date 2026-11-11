@@ -1,0 +1,187 @@
+{
+  "list_course_templates": [
+    {
+      "id": "interview",
+      "title": "Interview prep",
+      "description": "Questions you are likely to be asked, with model answers and the reasoning behind them."
+    },
+    {
+      "id": "exam",
+      "title": "Exam review",
+      "description": "Each topic condensed into what to remember, with practice questions at the end."
+    },
+    {
+      "id": "overview",
+      "title": "Quick overview",
+      "description": "A short tour of the subject that shows how the parts fit together."
+    },
+    {
+      "id": "custom",
+      "title": "Custom",
+      "description": "Only your own guide shapes the course."
+    }
+  ],
+  "course_setup": {
+    "template": "exam",
+    "level": "some",
+    "hoursPerWeek": 6,
+    "language": "en",
+    "guide": "Focus on membranes. Skip plant biology."
+  },
+  "course_setup_no_hours": {
+    "template": "overview",
+    "level": "new",
+    "hoursPerWeek": null,
+    "language": "th",
+    "guide": ""
+  },
+  "import_files": [
+    {
+      "path": "/Users/me/notes/membranes.pdf",
+      "status": "imported",
+      "reason": null,
+      "source": {
+        "name": "membranes.pdf",
+        "path": "sources/membranes.pdf",
+        "kind": "pdf",
+        "url": null,
+        "fetchedAt": null,
+        "bytes": 482113
+      }
+    },
+    {
+      "path": "/Users/me/notes/summary.md",
+      "status": "imported",
+      "reason": null,
+      "source": {
+        "name": "summary.md",
+        "path": "sources/summary.md",
+        "kind": "markdown",
+        "url": null,
+        "fetchedAt": null,
+        "bytes": 2210
+      }
+    },
+    {
+      "path": "/Users/me/notes/summary-copy.md",
+      "status": "skipped",
+      "reason": "duplicate",
+      "source": null
+    },
+    {
+      "path": "/Users/me/notes/lecture.mp4",
+      "status": "skipped",
+      "reason": "unsupported file type .mp4",
+      "source": null
+    }
+  ],
+  "list_course_sources": [
+    {
+      "name": "membranes.pdf",
+      "path": "sources/membranes.pdf",
+      "kind": "pdf",
+      "url": null,
+      "fetchedAt": null,
+      "bytes": 482113
+    },
+    {
+      "name": "example-com-a.md",
+      "path": "sources/example-com-a.md",
+      "kind": "url",
+      "url": "https://example.com/a",
+      "fetchedAt": "2026-11-08T11:13:20Z",
+      "bytes": 5120
+    }
+  ],
+  "outline_draft": {
+    "status": "draft",
+    "title": "Cell Biology",
+    "objectives": [
+      "Explain how a membrane separates a cell from its surroundings",
+      "Compare diffusion and active transport"
+    ],
+    "chapters": [
+      {
+        "id": "cells",
+        "title": "Cells as the unit of life",
+        "summary": "What a cell is and why every organism is built from them.",
+        "sources": [
+          "membranes.pdf"
+        ],
+        "comment": "",
+        "written": false
+      },
+      {
+        "id": "membranes",
+        "title": "Membranes and transport",
+        "summary": "The lipid bilayer, channels and pumps.",
+        "sources": [
+          "membranes.pdf",
+          "summary.md"
+        ],
+        "comment": "",
+        "written": false
+      },
+      {
+        "id": "nucleus",
+        "title": "The nucleus and the genome",
+        "summary": "Where the instructions live.",
+        "sources": [],
+        "comment": "",
+        "written": false
+      }
+    ]
+  },
+  "outline_approved_with_written": {
+    "status": "approved",
+    "title": "Cell Biology",
+    "objectives": [
+      "Explain how a membrane separates a cell from its surroundings"
+    ],
+    "chapters": [
+      {
+        "id": "cells",
+        "title": "Cells as the unit of life",
+        "summary": "What a cell is.",
+        "sources": [
+          "membranes.pdf"
+        ],
+        "comment": "",
+        "written": true
+      },
+      {
+        "id": "membranes",
+        "title": "Membranes and transport",
+        "summary": "The lipid bilayer, channels and pumps.",
+        "sources": [],
+        "comment": "",
+        "written": false
+      }
+    ]
+  },
+  "outline_approved": {
+    "status": "approved",
+    "title": "Cell Biology",
+    "objectives": [
+      "Explain how a membrane separates a cell from its surroundings"
+    ],
+    "chapters": [
+      {
+        "id": "cells",
+        "title": "Cells",
+        "summary": "What a cell is.",
+        "sources": [],
+        "comment": "",
+        "written": true
+      },
+      {
+        "id": "membranes",
+        "title": "Membranes",
+        "summary": "The lipid bilayer, channels and pumps.",
+        "sources": [],
+        "comment": "",
+        "written": false
+      }
+    ]
+  }
+}

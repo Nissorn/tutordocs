@@ -1,0 +1,592 @@
+/* The outline review screen. It sits in the reader's document column, which
+   scrolls and pads, so the footer sticks to the bottom of that column. */
+
+.reader[data-mode="review"] {
+  grid-template-columns: var(--sidebar-col) minmax(0, 1fr);
+}
+
+.reader[data-mode="review"] .margin {
+  display: none;
+}
+
+.sidebar-note {
+  margin: 4px 10px 10px;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.review {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+}
+
+.review-head h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.review-status {
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--busy-bg);
+  color: var(--busy-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.review-status[data-status="approved"] {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.review-intro {
+  margin: 8px 0 8px;
+  color: var(--ink-muted);
+}
+
+.review-fields {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.review-fields:disabled {
+  opacity: 0.6;
+}
+
+.review-section h2 {
+  margin: 28px 0 10px;
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.draft-objectives,
+.draft-chapters {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.draft-chapters {
+  gap: 12px;
+}
+
+.draft-objective-row {
+  display: flex;
+  gap: 8px;
+}
+
+.draft-objective,
+.draft-title,
+.draft-summary,
+.draft-comment {
+  min-width: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.draft-objective {
+  flex: 1;
+}
+
+.draft-summary,
+.draft-comment {
+  width: 100%;
+  resize: vertical;
+}
+
+.draft-comment {
+  border-style: dashed;
+  background: var(--sidebar-bg);
+}
+
+.draft-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.draft-objective::placeholder,
+.draft-title::placeholder,
+.draft-summary::placeholder,
+.draft-comment::placeholder {
+  color: var(--ink-quiet);
+}
+
+.draft-objective:focus-visible,
+.draft-title:focus-visible,
+.draft-summary:focus-visible,
+.draft-comment:focus-visible,
+.drag-handle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.draft-chapter {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.draft-chapter.dragging {
+  display: none;
+}
+
+.drag-placeholder {
+  box-sizing: border-box;
+  border: 2px dashed var(--ink-faint);
+  border-radius: var(--radius-lg);
+  background: var(--hover);
+  list-style: none;
+}
+
+.drag-ghost {
+  position: fixed;
+  z-index: 40;
+  max-width: 320px;
+  padding: 8px 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  color: var(--ink);
+  font-size: var(--text-md);
+  pointer-events: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.draft-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drag-handle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: -2px;
+  line-height: 1;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.drag-handle[aria-disabled="true"] {
+  cursor: default;
+}
+
+.drag-handle:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.draft-number {
+  min-width: 1.4em;
+  color: var(--ink-quiet);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.written-badge {
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+}
+
+.variant-branch-hint {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.draft-reason {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+}
+
+.source-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.source-chip {
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--sidebar-bg);
+  color: var(--ink-muted);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.source-none {
+  color: var(--ink-quiet);
+  font-size: var(--text-xs);
+}
+
+.review-dock {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.review-panel:empty,
+.review-notices:empty {
+  display: none;
+}
+
+/* The dock is the end of the page and sticks to the column's bottom edge, so the column keeps no padding under it. */
+main.document[data-state="review"] {
+  padding-bottom: 0;
+}
+
+.approve-panel,
+.approved-panel {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--sidebar-bg);
+}
+
+.approve-lead {
+  margin: 0;
+  font-weight: 650;
+}
+
+.approve-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.approve-choice input {
+  margin-top: 6px;
+}
+
+.approve-text {
+  display: grid;
+  gap: 1px;
+}
+
+.approve-label {
+  font-weight: 600;
+}
+
+.approve-detail {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.approve-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-error,
+.review-notice {
+  margin: 0;
+  padding-left: 0.8em;
+  border-left: 3px solid var(--danger);
+  color: var(--danger);
+  font-size: var(--text-md);
+  overflow-wrap: anywhere;
+}
+
+.review-notice {
+  border-left-color: var(--ok-ink);
+  color: var(--ink-muted);
+}
+
+.review-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.review-save,
+.review-hint {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+}
+
+.review-hint {
+  flex: 1 1 14rem;
+  color: var(--ink-quiet);
+}
+
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.review-actions .outline-submit,
+.approve-actions .outline-submit,
+.wizard-nav .outline-submit {
+  border-color: var(--ink-faint);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.variant-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--sidebar-bg);
+}
+
+.variant-bar-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.variant-select {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.variant-branch-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.variant-branch-label {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.compare-host {
+  margin: 16px 0;
+}
+
+.compare-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.compare-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.compare-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-width: 0;
+}
+
+.compare-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  min-width: 0;
+}
+
+.compare-col-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.compare-variant-select {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--sidebar-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.compare-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-title-row h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+
+.compare-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compare-objectives-section h4,
+.compare-chapters-section h4 {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  color: var(--ink-muted);
+}
+
+.compare-objectives {
+  margin: 0;
+  padding-left: 20px;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.compare-chapters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compare-chapter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--sidebar-bg);
+}
+
+/* The number keeps a fixed gutter and the title wraps inside the space beside
+   it, so a long title never strands the number on a line of its own. Badges
+   start on the next line, lined up under the title. */
+.compare-chapter-top {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.compare-chapter-top .draft-number {
+  flex: none;
+  width: 1.4em;
+}
+
+.compare-chapter-title {
+  flex: 1 1 calc(100% - 1.4em - 8px);
+  min-width: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.compare-chapter-title + .compare-diff-badge,
+.compare-chapter-title + .written-badge {
+  margin-left: calc(1.4em + 8px);
+}
+
+.compare-summary {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.compare-diff-badge {
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--busy-bg);
+  color: var(--busy-ink);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  line-height: 1.7;
+}

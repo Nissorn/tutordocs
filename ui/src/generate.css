@@ -1,0 +1,159 @@
+.generation-status {
+  min-height: 1.65em;
+  margin: 0.4em 0 0;
+  color: var(--ink-muted);
+  font-size: 0.92em;
+}
+
+/* The Rewrite control and its status are app chrome that sits in the reading
+   column, so they keep the app's size and font whatever the reading settings are.
+   The row lives in the page's top padding, so it takes no height of its own and
+   the chapter title stays where it is. */
+.chapter-tools {
+  position: absolute;
+  top: -2.75rem;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 12px;
+  font-family: var(--ui-font);
+  font-size: 1rem;
+}
+
+.chapter-tools .generation-status {
+  min-height: 0;
+  margin: 0;
+}
+
+/* While the confirm box is open it is the only control, so the Rewrite button
+   steps aside. The box floats over the chapter's first lines instead of pushing
+   them down. */
+.chapter-tools:has(.rewrite-confirm-box) .chapter-rewrite {
+  display: none;
+}
+
+/* Once the rewrite is running the form has nothing left to ask, so it gets out
+   of the way of the chapter and only the status line stays. A failed run
+   re-enables Confirm, which brings the form back with the error under it. */
+.rewrite-confirm-box:has(.rewrite-confirm:disabled) {
+  display: none;
+}
+
+.rewrite-confirm-box {
+  flex: 1 1 100%;
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-popover);
+}
+
+.rewrite-confirm-prompt {
+  color: var(--ink);
+}
+
+.rewrite-form {
+  display: grid;
+  gap: 12px;
+}
+
+.rewrite-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rewrite-chip[aria-pressed="true"] {
+  border-color: var(--focus);
+  background: var(--busy-bg);
+  color: var(--busy-ink);
+}
+
+.rewrite-note {
+  display: grid;
+  gap: 4px;
+}
+
+.rewrite-note-label {
+  color: var(--ink-muted);
+  font-size: 0.88em;
+}
+
+.rewrite-note-input {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92em;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.rewrite-note-input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.rewrite-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* The one geometry for a text button: 32px tall, so it lines up with the inputs
+   it sits beside. It is wrapped in :where() so it has no weight of its own, and
+   a compact variant in another stylesheet (a card menu, a menu action) wins by
+   its own class instead of by which sheet loads last. The line height is stated
+   because a button inherits the page's loose reading line height otherwise and
+   grows past its row. */
+:where(.quiet-button, .outline-submit) {
+  padding: 7px var(--space-md);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.quiet-button:hover,
+.outline-submit:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+
+.quiet-button:disabled,
+.outline-submit:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.outline-submit {
+  justify-self: start;
+  color: var(--ink);
+}
+
+/* The button inside has 8px of padding of its own, so 2px here puts its label
+   on the same edge as the chapter titles below it. */
+.course-tools {
+  margin: 0 0 var(--space-xs);
+  padding: 0 2px;
+}
+
+.course-tools .quiet-button {
+  padding: 2px 8px;
+  border-color: transparent;
+  background: transparent;
+  font-size: 0.82em;
+}

@@ -1,0 +1,3 @@
+{"event":"step_update","step_update":{"step_index":1,"state":"ACTIVE","step_type":"agent_response","text_delta":"Hel"}}
+{"event":"step_update","step_update":{"step_index":1,"state":"ACTIVE","step_type":"agent_response","text_delta":"lo"}}
+{"event":"step_update","step_update":{"step_index":2,"state":"DONE","step_type":"tool","tool_name":"Read","tool_info":{"name":"Read","parameters":{"file_path":"sources/notes.md"}}}}

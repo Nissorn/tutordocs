@@ -1,0 +1,56 @@
+[package]
+name = "tutordocs"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "TutorDocs: one lean macOS reader for study, exam prep and interview prep"
+default-run = "tutordocs"
+
+[lib]
+name = "tutordocs_lib"
+crate-type = ["rlib"]
+
+[[bin]]
+name = "tutordocs"
+path = "src/main.rs"
+
+[[bin]]
+name = "tutordocs-ctl"
+path = "src/bin/tutordocs_ctl.rs"
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+e2e-control = [
+    "dep:block2",
+    "dep:objc2",
+    "dep:objc2-app-kit",
+    "dep:objc2-foundation",
+    "dep:objc2-web-kit",
+]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "=2.12.5", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-updater = "2"
+tauri-plugin-process = "2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+tutordocs-store = { path = "../crates/store" }
+tutordocs-agent = { path = "../crates/agent" }
+tutordocs-engine = { path = "../crates/engine" }
+tutordocs-ingest = { path = "../crates/ingest" }
+regex = "1"
+block2 = { version = "0.6.2", optional = true }
+objc2 = { version = "0.6.5", optional = true }
+objc2-foundation = { version = "0.3.2", default-features = false, features = ["std", "NSData", "NSDictionary", "NSError", "NSString"], optional = true }
+objc2-app-kit = { version = "0.3.2", default-features = false, features = ["std", "NSImage", "NSImageRep", "NSBitmapImageRep"], optional = true }
+objc2-web-kit = { version = "0.3.2", default-features = false, features = ["std", "block2", "objc2-app-kit", "WKWebView", "WKSnapshotConfiguration"], optional = true }
+
+[dev-dependencies]
+tauri = { version = "=2.12.5", features = ["test"] }
+tempfile = "3"
+async-trait = "0.1"
+anyhow = "1"
