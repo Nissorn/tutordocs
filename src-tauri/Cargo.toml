@@ -17,6 +17,7 @@ path = "src/main.rs"
 [[bin]]
 name = "tutordocs-ctl"
 path = "src/bin/tutordocs_ctl.rs"
+required-features = ["e2e-control"]
 
 [features]
 custom-protocol = ["tauri/custom-protocol"]
